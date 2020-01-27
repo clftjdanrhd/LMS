@@ -19,52 +19,58 @@ import com.lms.dto.UserVO;
 @WebServlet("/login.do")
 public class LoginServlet extends HttpServlet {
    private static final long serialVersionUID = 1L;
-       
-   protected void doGet(HttpServletRequest request,
-         HttpServletResponse response) throws ServletException, IOException {
-      
-	   String url="user/login.jsp";
-      
-      HttpSession session= request.getSession();
-      
-      if(session.getAttribute("loginUser") !=null){//ï¿½ì” èª˜ï¿½ æ¿¡ì’“ë ‡ï¿½ì”¤ï¿½ë§‚ ï¿½ê¶—ï¿½ìŠœï¿½ì˜„ï§ï¿½ 
-    	  url="main.jsp";//ï§ë¶¿ì”¤ ï¿½ëŸ¹ï¿½ì” ï§ï¿½æ¿¡ï¿½ ï¿½ì” ï¿½ë£ï¿½ë¸³ï¿½ë–
-      }
-      
-	   RequestDispatcher dispatcher = request
-            .getRequestDispatcher(url);
-      dispatcher.forward(request, response);
-   }
-   
 
    /**
-    * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+    * 
+    * 
+    * @see HttpServlet#HttpServlet()
     */
-   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-      String url="user/login.jsp";
-            
-            String userno= request.getParameter("userno");
-      String userpw= request.getParameter("userpw");
-      
-      UserDAO mDao= UserDAO.getInstance();
-      int result = mDao.userCheck(userno,userpw);
-      
-      if(result==1){
-         UserVO mVo= mDao.getMember(userno);
+   public LoginServlet() {
+      super();
+      // TODO Auto-generated constructor stub
+   }
+
+   /**
+    * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+    *      response)
+    */
+   protected void doGet(HttpServletRequest request,
+         HttpServletResponse response) throws ServletException, IOException {
+      /*
+       * String url = "user/login.jsp"; HttpSession session = request.getSession(); if
+       * (session.getAttribute("loginUser") != null) {// ÀÌ¹Ì ·Î±×ÀÎ µÈ »ç¿ëÀÚÀÌ¸é url =
+       * "index.jsp"; // ¸ŞÀÎ ÆäÀÌÁö·Î ÀÌµ¿ÇÑ´Ù. }
+       */
+      RequestDispatcher dispatcher = request.getRequestDispatcher("user/login.jsp");
+      dispatcher.forward(request, response);
+   }
+
+   /**
+    * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+    *      response)
+    */
+   protected void doPost(HttpServletRequest request,
+         HttpServletResponse response) throws ServletException, IOException {
+      String url = "user/login.jsp";
+      String userno = request.getParameter("userno");
+      String userpw = request.getParameter("userpw");
+      UserDAO mDao = UserDAO.getInstance();
+      int result = mDao.userCheck(userno, userpw);
+      if (result == 1) {
+         UserVO mVo = mDao.getUser(userno);
+         
+         
          HttpSession session = request.getSession();
          session.setAttribute("loginUser", mVo);
-         request.setAttribute("message", "íšŒì›ê°€ì…ì— ì„±ê³µí–ˆìŠµë‹ˆë‹¤");
-         url="main.jsp";
-      }else if(result==0){
-         request.setAttribute("message", "ë¹„ë°€ë²ˆí˜¸ê°€ ë§ì§€ ì•ŠìŠµë‹ˆë‹¤ ");
-      }else if(result==-1){
-         request.setAttribute("message", "ì¡´ì¬í•˜ì§€ ì•ŠëŠ” íšŒì›ì…ë‹ˆë‹¤");
+         request.setAttribute("message", "È¸¿ø°¡ÀÔ¿¡ ¼º°øÇß½À´Ï´Ù.");
+         url = "index.jsp";
+      } else if (result == 0) {
+         request.setAttribute("message", "ºñ¹Ğ¹øÈ£°¡ ¸ÂÁö ¾Ê½À´Ï´Ù.");
+      } else if (result == -1) {
+         request.setAttribute("message", "Á¸ÀçÇÏÁö ¾Ê´Â È¸¿øÀÔ´Ï´Ù.");
       }
-   RequestDispatcher dispatcher= request
-         .getRequestDispatcher(url);
-   dispatcher.forward(request, response);
-   
+      RequestDispatcher dispatcher = request.getRequestDispatcher(url);
+      dispatcher.forward(request, response);
    }
-   
 
 }

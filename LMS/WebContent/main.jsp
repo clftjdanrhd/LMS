@@ -1,10 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
-<c:if test="${empty loginUser}">
-<jsp:forward page='login.do'/>
-</c:if>
 <html lang="en">
 
 <head>
@@ -49,7 +45,7 @@
         <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
       </div>
       <!--logo start-->
-      <a href="index.jsp" class="logo"><b><span>LMS</span>&nbsp; Global IT Business</b></a> 
+      <a href="main.jsp" class="logo"><b><span>LMS</span>&nbsp; Global IT Business</b></a> 
       <!--logo end-->
       <div class="nav notify-row" id="top_menu">
         <!--  notification start -->
@@ -238,7 +234,7 @@
       </div>
       <div class="top-menu">
         <ul class="nav pull-right top-menu">
-          <li><a class="logout" href="logout.do">Logout</a></li>
+          <li><a class="logout" href="login.do">Login</a></li>
         </ul>
       </div>
     </header>
@@ -251,8 +247,8 @@
       <div id="sidebar" class="nav-collapse ">
         <!-- sidebar menu start-->
         <ul class="sidebar-menu" id="nav-accordion">
-          <p class="centered"><a href="profile.jsp"><img src="img/ui-sam.jpg" class="img-circle" width="80"></a></p>
-          <h5 class="centered">${loginUser.username}</h5>
+          <p class="centered"><a href="login.do"><img src="resources/img/ui-sam.jpg" class="img-circle" width="80"></a></p>
+          <h5 class="centered">로그인 해주세요.</h5>
           <li class="mt">
             <a class="active" href="index.jsp">
               <i class="fa fa-dashboard"></i>
@@ -264,19 +260,19 @@
               <i class="fa fa-desktop"></i>
               <span>실습실 현황</span>
               </a>
-         <!--    <ul class="sub">
+            <ul class="sub">
               <li><a href="general.jsp">General</a></li>
               <li><a href="buttons.jsp">Buttons</a></li>
               <li><a href="panels.jsp">Panels</a></li>
               <li><a href="font_awesome.jsp">Font Awesome</a></li>
             </ul>
-          </li> -->
+          </li>
           <li class="sub-menu">
             <a href="javascript:;">
               <i class="fa fa-cogs"></i>
               <span>분실물게시판</span>
               </a>
-<!--             <ul class="sub">
+            <ul class="sub">
               <li><a href="grids.jsp">Grids</a></li>
               <li><a href="calendar.jsp">Calendar</a></li>
               <li><a href="gallery.jsp">Gallery</a></li>
@@ -285,7 +281,7 @@
               <li><a href="inline_editor.jsp">Inline Editor</a></li>
               <li><a href="file_upload.jsp">Multiple File Upload</a></li>
             </ul>
-          </li> -->
+          </li>
           <!-- <li class="sub-menu">
             <a href="javascript:;">
               <i class="fa fa-book"></i>

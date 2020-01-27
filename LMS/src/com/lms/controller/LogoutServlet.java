@@ -19,19 +19,34 @@ import com.lms.dto.UserVO;
 @WebServlet("/logout.do")
 public class LogoutServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    
-	protected void doGet(HttpServletRequest request, 
+
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public LogoutServlet() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		HttpSession sesstion= request.getSession();
-		sesstion.invalidate();
-		RequestDispatcher dispatcher= request
-				.getRequestDispatcher("member/login.jsp");
+		HttpSession session = request.getSession();
+		session.invalidate();
+		RequestDispatcher dispatcher = request
+				.getRequestDispatcher("main.jsp");
 		dispatcher.forward(request, response);
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}
 

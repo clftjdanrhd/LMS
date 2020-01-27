@@ -3,35 +3,35 @@ package com.lms.dto;
 public class UserVO {
 	
 	
-	private int userNo;
-	private String userPw;
-	private String userName;
-	private int userTel;
+	private String userno;
+	private String userpw;
+	private String username;
+	private int usertel;
 	private String state;
 	private String authority;
-	public int getUserNo() {
-		return userNo;
+	public String getUserno() {
+		return userno;
 	}
-	public void setUserNo(int userNo) {
-		this.userNo = userNo;
+	public void setUserno(String userno) {
+		this.userno = userno;
 	}
-	public String getUserPw() {
-		return userPw;
+	public String getUserpw() {
+		return userpw;
 	}
-	public void setUserPw(String userPw) {
-		this.userPw = userPw;
+	public void setUserpw(String userpw) {
+		this.userpw = userpw;
 	}
-	public String getUserName() {
-		return userName;
+	public String getUsername() {
+		return username;
 	}
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setUsername(String username) {
+		this.username = username;
 	}
-	public int getUserTel() {
-		return userTel;
+	public int getUsertel() {
+		return usertel;
 	}
-	public void setUserTel(int userTel) {
-		this.userTel = userTel;
+	public void setUsertel(int usertel) {
+		this.usertel = usertel;
 	}
 	public String getState() {
 		return state;
@@ -47,16 +47,9 @@ public class UserVO {
 	}
 	@Override
 	public String toString() {
-		return "UserVO [userNo=" + userNo + ", userPw=" + userPw + ", userName=" + userName + ", userTel=" + userTel
+		return "UserVO [userno=" + userno + ", userpw=" + userpw + ", username=" + username + ", usertel=" + usertel
 				+ ", state=" + state + ", authority=" + authority + "]";
 	}
-	
-	
-	
-	
-	
 
-	
-	
 
 }

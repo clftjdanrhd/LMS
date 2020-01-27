@@ -5,7 +5,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <head>
-  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
   <meta name="author" content="Dashboard">
@@ -30,6 +29,8 @@
     Author: TemplateMag.com
     License: https://templatemag.com/license/
   ======================================================= -->
+  
+  <script type="text/javascript" src="script/member.js"></script>
 </head>
 
 <body>
@@ -38,19 +39,19 @@
       *********************************************************************************************************************************************************** -->
   <div id="login-page">
     <div class="container">
-      <form class="form-login" action="index.jsp">
+      <form method="post" class="form-login" action="login.do" name="frm" >
         <h2 class="form-login-heading">sign in now</h2>
         <div class="login-wrap">
-          <input type="text" class="form-control" placeholder="User ID" autofocus>
+          <input type="text" class="form-control" name="userno"  value="${userno}" autofocus>
           <br>
-          <input type="password" class="form-control" placeholder="Password">
+          <input type="password" class="form-control" name="userpw" >
           <label class="checkbox">
             <input type="checkbox" value="remember-me"> Remember me
             <span class="pull-right">
             <a data-toggle="modal" href="login.jsp#myModal"> Forgot Password?</a>
             </span>
             </label>
-          <button class="btn btn-theme btn-block" href="index.jsp" type="submit"><i class="fa fa-lock"></i> SIGN IN</button>
+          <input class="btn btn-theme btn-block" type="submit" value="SIGN IN"  class="submit" onclick="return loginCheck()"><i class="fa fa-lock"></i>
           <hr>
           <div class="login-social-link centered">
             <p>or you can sign in via your social network</p>
