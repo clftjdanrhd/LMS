@@ -10,7 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.lms.dao.LabListDAO;
 import com.lms.dao.UserDAO;
+import com.lms.dto.LabListVO;
 import com.lms.dto.UserVO;
 
 /**
@@ -38,8 +40,8 @@ public class LoginServlet extends HttpServlet {
          HttpServletResponse response) throws ServletException, IOException {
       /*
        * String url = "user/login.jsp"; HttpSession session = request.getSession(); if
-       * (session.getAttribute("loginUser") != null) {// ÀÌ¹Ì ·Î±×ÀÎ µÈ »ç¿ëÀÚÀÌ¸é url =
-       * "index.jsp"; // ¸ŞÀÎ ÆäÀÌÁö·Î ÀÌµ¿ÇÑ´Ù. }
+       * (session.getAttribute("loginUser") != null) {// å ì‹±ë±„ì˜™ å ì‹¸ê¹ì˜™å ì™ì˜™ å ì™ì˜™ å ì™ì˜™å ì™ì˜™å ì™ì˜™è¦‹å ï¿½ url =
+       * "index.jsp"; // å ì™ì˜™å ì™ì˜™ å ì™ì˜™å ì™ì˜™å ì™ì˜™å ì™ì˜™ å ì‹±ë“¸ì˜™å ì‹¼ëŒì˜™. }
        */
       RequestDispatcher dispatcher = request.getRequestDispatcher("user/login.jsp");
       dispatcher.forward(request, response);
@@ -51,7 +53,8 @@ public class LoginServlet extends HttpServlet {
     */
    protected void doPost(HttpServletRequest request,
          HttpServletResponse response) throws ServletException, IOException {
-      String url = "user/login.jsp";
+      String url = "/main.do";
+      
       String userno = request.getParameter("userno");
       String userpw = request.getParameter("userpw");
       UserDAO mDao = UserDAO.getInstance();
@@ -62,12 +65,21 @@ public class LoginServlet extends HttpServlet {
          
          HttpSession session = request.getSession();
          session.setAttribute("loginUser", mVo);
-         request.setAttribute("message", "È¸¿ø°¡ÀÔ¿¡ ¼º°øÇß½À´Ï´Ù.");
-         url = "index.jsp";
+         
+         //ê¸°ì¡´ ì°¸ì—¬/ë¯¸ì°¸ì—¬ lab info ê°€ì ¸ì˜¤ê¸°
+         LabListVO lVo = LabListDAO.getInstance().getLab(userno);
+         
+         if(lVo != null) {
+        	 
+        	 session.setAttribute("labUser", lVo);
+         }
+         
+         request.setAttribute("message", "ë¡œê·¸ì¸ ë˜ì—ˆìŠµë‹ˆë‹¤.");
+         url = "/main.do";
       } else if (result == 0) {
-         request.setAttribute("message", "ºñ¹Ğ¹øÈ£°¡ ¸ÂÁö ¾Ê½À´Ï´Ù.");
+         request.setAttribute("message", "ì•„ì´ë””ê°€ í‹€ë ¸ìŠµë‹ˆë‹¤.");
       } else if (result == -1) {
-         request.setAttribute("message", "Á¸ÀçÇÏÁö ¾Ê´Â È¸¿øÀÔ´Ï´Ù.");
+         request.setAttribute("message", "ë¹„ë°€ë²ˆí˜¸ê°€ í‹€ë ¸ìŠµë‹ˆë‹¤.");
       }
       RequestDispatcher dispatcher = request.getRequestDispatcher(url);
       dispatcher.forward(request, response);
