@@ -3,7 +3,7 @@ package com.lms.dto;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class BoardVO {
+public class BoardVO{
 	
 	
 	private int boardNo;
@@ -11,8 +11,9 @@ public class BoardVO {
 	private String boardContent;
 	private Date regDate;
 	private int viewCnt;
-	ArrayList<String> Filelist = new ArrayList<String>();
-	private int userNo;
+	ArrayList<FileVO> fileList = new ArrayList<FileVO>();
+	private String userNo;
+	private String userName;
 	private String boardPass;
 	public int getBoardNo() {
 		return boardNo;
@@ -44,17 +45,18 @@ public class BoardVO {
 	public void setViewCnt(int viewCnt) {
 		this.viewCnt = viewCnt;
 	}
-	public ArrayList<String> getFilelist() {
-		return Filelist;
-	}
-	public void setFilelist(ArrayList<String> filelist) {
-		Filelist = filelist;
-	}
-	public int getUserNo() {
+
+	public String getUserNo() {
 		return userNo;
 	}
-	public void setUserNo(int userNo) {
+	public void setUserNo(String userNo) {
 		this.userNo = userNo;
+	}
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 	public String getBoardPass() {
 		return boardPass;
@@ -62,14 +64,18 @@ public class BoardVO {
 	public void setBoardPass(String boardPass) {
 		this.boardPass = boardPass;
 	}
+	public ArrayList<FileVO> getFileList() {
+		return fileList;
+	}
+	public void setFileList(ArrayList<FileVO> fileList) {
+		this.fileList = fileList;
+	}
 	@Override
 	public String toString() {
 		return "BoardVO [boardNo=" + boardNo + ", boardTitle=" + boardTitle + ", boardContent=" + boardContent
-				+ ", regDate=" + regDate + ", viewCnt=" + viewCnt + ", Filelist=" + Filelist + ", userNo=" + userNo
-				+ ", boardPass=" + boardPass + "]";
+				+ ", regDate=" + regDate + ", viewCnt=" + viewCnt + ", fileList=" + fileList + ", userNo=" + userNo
+				+ ", userName=" + userName + ", boardPass=" + boardPass + "]";
 	}
-	
-	
-	
+
 
 }
