@@ -12,7 +12,7 @@ import com.lms.dto.FileVO;
 import util.DBManager;
 
 public class FileDAO {
-	
+
 	private static FileDAO instance = new FileDAO();
 
 	public static FileDAO getInstance() {
@@ -20,32 +20,32 @@ public class FileDAO {
 	}
 
 
-	public List<FileVO> getShopImageList(String fileNo) {
+	public ArrayList<FileVO> getFileList(String boardNo) {
 
-		List<FileVO> fileList = new ArrayList<FileVO>();
+		ArrayList<FileVO> fileList = new ArrayList<FileVO>();
 
 		Connection conn = DBManager.getConnection();
 
 		ResultSet rs = null; 
 		PreparedStatement st = null;
 
-		String sql = "SELECT FILE_NO, FILE_NAME, BOARD_NO FROM TBL_FILE WHERE FILE_NO = ? ORDER BY FILE_NAME";
+		String sql = "SELECT FILE_NO, FILE_NAME, BOARD_NO FROM TBL_FILE WHERE BOARD_NO = ?";
 
 		try {
 
 			st = conn.prepareStatement(sql);
 
-			st.setString(1, menuNo);
+			st.setString(1, boardNo);
 			rs = st.executeQuery(); 
 
 			while (rs.next()) {
 
-				FileVO iVo = new FileVO();
-				iVo.setImgNo(rs.getInt("IMAGE_NO"));
-				iVo.setImgPath(rs.getString("IMAGE_PATH"));
-				iVo.setImgOrder(rs.getInt("IMAGE_ORDER"));
+				FileVO fVo = new FileVO();
+				fVo.setFileNo(rs.getInt("FILE_NO"));
+				fVo.setFileName(rs.getString("FILE_NAME"));
+				fVo.setBoardNo(rs.getInt("BOARD_NO"));
 
-				imgList.add(iVo);
+				fileList.add(fVo);
 
 			}
 
@@ -56,48 +56,13 @@ public class FileDAO {
 			DBManager.close(conn, st, rs);
 		}
 
-		return imgList;
+		return fileList;
 	}
 	
 
 
-	public FileVO getMenuFristImage(int menuNo) {
 
-		FileVO iVo = new FileVO();
-
-		Connection conn = DBManager.getConnection();
-
-		ResultSet rs = null; 
-		PreparedStatement st = null;
-
-		String sql = "SELECT IMAGE_NO, IMAGE_PATH FROM TB_IMAGE WHERE MENU_NO = ? AND IMAGE_ORDER=1";
-
-		try {
-
-			st = conn.prepareStatement(sql);
-
-			st.setInt(1, menuNo);
-			rs = st.executeQuery(); 
-
-			while (rs.next()) {
-
-				iVo.setImgNo(rs.getInt("IMAGE_NO"));
-				iVo.setImgPath(rs.getString("IMAGE_PATH"));
-
-			}
-
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			DBManager.close(conn, st, rs);
-		}
-
-		return iVo;
-	}
-
-
-	public int createMenuImage(FileVO iVo, int menuNo) {
+	public int createFile(FileVO fVo, int boardNo) {
 
 		int res = 0;
 
@@ -105,13 +70,12 @@ public class FileDAO {
 
 		PreparedStatement st = null;
 
-		String sql = "INSERT INTO TB_IMAGE ( IMAGE_NO, IMAGE_PATH, IMAGE_ORDER, MENU_NO )" + "  VALUES(IMAGE_SEQ.nextval, ?, ?, ?)";
+		String sql = "INSERT INTO TBL_FILE ( FILE_NO, FILE_NAME, BOARD_NO )" + "  VALUES(FILE_SEQ.nextval, ?, ?)";
 
 		try {
 			st = conn.prepareStatement(sql);
-			st.setString(1, iVo.getImgPath());
-			st.setInt(2, iVo.getImgOrder());
-			st.setInt(3, menuNo);
+			st.setString(1, fVo.getFileName());
+			st.setInt(2, boardNo);
 
 			res = st.executeUpdate(); 
 
@@ -127,7 +91,7 @@ public class FileDAO {
 		return res;
 	}
 
-	public int deleteImageName(String imgName) {
+	public int deleteFileName(String fileName) {
 
 		int res = 0;
 
@@ -135,11 +99,11 @@ public class FileDAO {
 
 		PreparedStatement st = null;
 
-		String sql = "DELETE FROM TB_IMAGE WHERE IMAGE_NAME = ?";
+		String sql = "DELETE FROM TBL_FILE WHERE FILE_NAME = ?";
 
 		try {
 			st = conn.prepareStatement(sql);
-			st.setString(1, imgName);
+			st.setString(1, fileName);
 
 			res = st.executeUpdate(); 
 
@@ -158,7 +122,7 @@ public class FileDAO {
 	
 	
 
-	public int deleteMenuImage(int no) {
+	public int deleteFile(String boardNo) {
 
 		int res = 0;
 
@@ -166,11 +130,11 @@ public class FileDAO {
 
 		PreparedStatement st = null;
 
-		String sql = "DELETE FROM TB_IMAGE WHERE MENU_NO = ?";
+		String sql = "DELETE FROM TBL_FILE WHERE BOARD_NO = ?";
 
 		try {
 			st = conn.prepareStatement(sql);
-			st.setInt(1, no);
+			st.setString(1, boardNo);
 
 			res = st.executeUpdate(); 
 
@@ -186,5 +150,4 @@ public class FileDAO {
 		return res;
 
 	}
-
 }
